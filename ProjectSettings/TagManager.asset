@@ -3,10 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Viewer
-  - Avatar
-  - NetworkManager
+  tags: []
   layers:
   - Default
   - TransparentFX

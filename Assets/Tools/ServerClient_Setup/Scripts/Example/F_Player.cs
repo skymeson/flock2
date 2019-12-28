@@ -144,7 +144,7 @@ public class F_Player : NetworkBehaviour {
 
 
 
-        if (VRDevice.isPresent) {
+        if (UnityEngine.XR.XRDevice.isPresent) {
 			// create camera rig and attach player model to it
 			//if (GameObject.FindObjectOfType<SteamVR_ControllerManager> () == null) {
 				vrCameraRigInstance = (GameObject)Instantiate (
@@ -155,10 +155,10 @@ public class F_Player : NetworkBehaviour {
 			//	vrCameraRigInstance = GameObject.FindObjectOfType<SteamVR_ControllerManager> ().gameObject;
 			//}
 
-			Debug.Log (VRDevice.isPresent);
+			Debug.Log (UnityEngine.XR.XRDevice.isPresent);
 
 			// ?????
-			Transform bodyOfVrPlayer = transform.FindChild ("VRPlayerBody");
+			Transform bodyOfVrPlayer = transform.Find ("VRPlayerBody");
 			if (bodyOfVrPlayer != null)
 				bodyOfVrPlayer.parent = null;
 
@@ -174,7 +174,7 @@ public class F_Player : NetworkBehaviour {
 				transform.position,
 				transform.rotation);
 
-			Debug.Log (VRDevice.isPresent);
+			Debug.Log (UnityEngine.XR.XRDevice.isPresent);
 
 		
 
