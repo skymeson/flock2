@@ -39,17 +39,17 @@ public class Mesages : NetworkBehaviour {
 		// delete main camera
 		DestroyImmediate (Camera.main.gameObject);
 
-		if (VRDevice.isPresent) {
+		if (UnityEngine.XR.XRDevice.isPresent) {
 			// create camera rig and attach player model to it
 			vrCameraRigInstance = (GameObject)Instantiate (
 				vrCameraRig,
 				transform.position,
 				transform.rotation);
 
-			Debug.Log (VRDevice.isPresent);
+			Debug.Log (UnityEngine.XR.XRDevice.isPresent);
 
 			// ?????
-			Transform bodyOfVrPlayer = transform.FindChild ("VRPlayerBody");
+			Transform bodyOfVrPlayer = transform.Find ("VRPlayerBody");
 			if (bodyOfVrPlayer != null)
 				bodyOfVrPlayer.parent = null;
 
@@ -63,7 +63,7 @@ public class Mesages : NetworkBehaviour {
 				transform.position,
 				transform.rotation);
 
-			Debug.Log (VRDevice.isPresent);
+			Debug.Log (UnityEngine.XR.XRDevice.isPresent);
 
 		
 

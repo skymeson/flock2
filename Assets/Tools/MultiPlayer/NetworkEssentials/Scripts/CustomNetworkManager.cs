@@ -57,7 +57,7 @@ public class CustomNetworkManager : NetworkManager {
 	public override void OnClientConnect (NetworkConnection conn)
 	{
 		SpawnMessage extraMessage = new SpawnMessage ();
-		extraMessage.isVrPlayer = UnityEngine.VR.VRSettings.enabled;
+		extraMessage.isVrPlayer = UnityEngine.XR.XRSettings.enabled;
 		ClientScene.AddPlayer (client.connection, 0, extraMessage);
 	}
 }
