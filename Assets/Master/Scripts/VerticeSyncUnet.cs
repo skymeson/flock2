@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace UnityEngine.Networking
 {
     [AddComponentMenu("Network/VerticeSyncUnet")]
-    //[NetworkSettings(channel=2)]
+    //
 
     public class VerticeSyncUnet : NetworkBehaviour
     {
@@ -376,6 +376,10 @@ namespace UnityEngine.Networking
         {
             return m_NetworkChannel;
         }
+        //public override float syncInterval()
+        //{
+        //    return m_SendInterval;
+        //}
         public override float GetNetworkSendInterval()
         {
             return m_SendInterval;

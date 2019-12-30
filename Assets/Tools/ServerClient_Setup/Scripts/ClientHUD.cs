@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.Networking;
+using Mirror;
 using System;
 
 public class ClientHUD : MonoBehaviour
@@ -15,16 +15,21 @@ public class ClientHUD : MonoBehaviour
     private float connectingTimer, connectionFaileTimer;
     private bool connected;
 
+    TelepathyTransport transport;
+
     // Use this for initialization
     void Start()
     {
         if (!manager)
             manager = GetComponent<NetworkManager>();
 
+        transport = manager.GetComponent<TelepathyTransport>();
+
         //checking if we have saved server info.
         if (PlayerPrefs.HasKey("nwPortC"))
         {
-            manager.networkPort = Convert.ToInt32(PlayerPrefs.GetString("nwPortC"));
+            //manager.networkPort = Convert.ToInt32(PlayerPrefs.GetString("nwPortC"));
+            transport.port = Convert.ToUInt16(PlayerPrefs.GetString("nwPortS"));
             portText.text = PlayerPrefs.GetString("nwPortC");
         }
         if (PlayerPrefs.HasKey("IPAddressC"))
@@ -63,7 +68,9 @@ public class ClientHUD : MonoBehaviour
             connectingTimer = 8;//how long we try to connect until the fail message appears.
             connectionFaileTimer = 2;//how long the fail message is showing.
             manager.networkAddress = ipText.text;
-            manager.networkPort = Convert.ToInt32(portText.text);
+            //manager.networkPort = Convert.ToInt32(portText.text);
+            transport.port = Convert.ToUInt16(portText.text);
+
             PlayerPrefs.SetString("IPAddressC", ipText.text);//saving the filled in ip.
             PlayerPrefs.SetString("nwPortC", portText.text);//saving the filled in port.
 

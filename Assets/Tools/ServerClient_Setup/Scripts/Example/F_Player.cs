@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.UI;
 using Valve.VR;
 using UnityEngine.VR;
@@ -309,7 +309,7 @@ public class F_Player : NetworkBehaviour {
     //		RpcReceivePosition(newPos, newRot);
     //	}
     //
-    //	[ClientRpc]//[ClientRpc(channel = 1)]
+    //	[ClientRpc]//[ClientRpc]
     //	protected void RpcReceivePosition(Vector3 newPos)
     //	{
     //		int frames = (SendRate + 1);

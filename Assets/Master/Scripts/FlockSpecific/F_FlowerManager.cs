@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 
 
 public class F_FlowerManager : NetworkBehaviour {
@@ -69,19 +69,23 @@ public class F_FlowerManager : NetworkBehaviour {
 	public void CmdInstanceNetworkObject(int which, NetworkIdentity id){//int which, GameObject toInstance, GameObject found, NetworkConnection conn) {
         GameObject g = (GameObject)Instantiate(networkObject, this.transform.position, this.transform.rotation);
 		NetworkServer.SpawnWithClientAuthority( g,id.connectionToClient);
-		g.name = networkObject.name + "_" + id.playerControllerId + "_" + which;
-		NetworkInstanceId ass =  g.GetComponent<NetworkIdentity> ().netId;
+        //g.name = networkObject.name + "_" + id.playerControllerId + "_" + which;
+        g.name = networkObject.name + "_" + id.netId + "_" + which;
+
+        uint ass =  g.GetComponent<NetworkIdentity> ().netId;
 		TargetConnectXform(id.connectionToClient, which,g.name,ass);
     }
 
 	[Command]
 	public void CmdDestroyInstanceNetworkObject(int which, NetworkIdentity id){
-		GameObject g = GameObject.Find (networkObject.name + "_" + id.playerControllerId + "_" + which);
-		NetworkServer.Destroy (g);
+        //GameObject g = GameObject.Find (networkObject.name + "_" + id.playerControllerId + "_" + which);
+        GameObject g = GameObject.Find(networkObject.name + "_" + id.netId + "_" + which);
+
+        NetworkServer.Destroy (g);
 	}
 
 	[TargetRpc]
-	void TargetConnectXform(NetworkConnection target,int which, string name, NetworkInstanceId ass){
+	void TargetConnectXform(NetworkConnection target,int which, string name, uint ass){
 		GameObject g = ClientScene.FindLocalObject (ass);
 		g.name = name;
         Debug.Log("LOOOCCCAAALLLLL");
