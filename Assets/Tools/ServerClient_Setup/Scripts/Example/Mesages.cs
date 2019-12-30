@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.UI;
 using Valve.VR;
 using UnityEngine.VR;
@@ -214,7 +214,7 @@ public class Mesages : NetworkBehaviour {
 /*
  * using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
+using Mirror;
 using System;
 
 public class VRPlayerController : NetworkBehaviour
@@ -333,7 +333,7 @@ public class VRPlayerController : NetworkBehaviour
 //	}
 //
 //	[Command]
-//	void CmdSpawnHands(NetworkInstanceId playerId)
+//	void CmdSpawnHands(uint playerId)
 //	{
 //        // instantiate controllers
 //        // tell the server, to spawn two new networked controller model prefabs on all clients
@@ -354,7 +354,7 @@ public class VRPlayerController : NetworkBehaviour
 //	}
 
 	[Command]
-	public void CmdGrab(NetworkInstanceId objectId, NetworkInstanceId controllerId)
+	public void CmdGrab(uint objectId, uint controllerId)
 	{
 		var iObject = NetworkServer.FindLocalObject (objectId);
 		var networkIdentity = iObject.GetComponent<NetworkIdentity> ();
@@ -367,7 +367,7 @@ public class VRPlayerController : NetworkBehaviour
     }
 
 	[Command]
-	public void CmdDrop(NetworkInstanceId objectId, Vector3 currentHolderVelocity)
+	public void CmdDrop(uint objectId, Vector3 currentHolderVelocity)
 	{
 		var iObject = NetworkServer.FindLocalObject (objectId);
 		var networkIdentity = iObject.GetComponent<NetworkIdentity> ();

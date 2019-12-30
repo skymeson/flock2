@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
-using UnityEngine.Networking.NetworkSystem;
+using Mirror;
+//using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
@@ -50,7 +50,8 @@ public class CustomNetworkManager2 : NetworkManager
 
         //Sending password information to client.
         StringMessage msg = new StringMessage(serverPassword);
-        NetworkServer.SendToClient(conn.connectionId, MsgType.Highest + 1, msg);
+        //NetworkServer.SendToClient(conn.connectionId, MsgType.Highest + 1, msg);
+        NetworkServer.SendToClient(conn.connectionId, (int)MsgType.Highest + 1, msg); 
     }
 
     //keeping track of Clients disconnecting.
@@ -74,7 +75,7 @@ public class CustomNetworkManager2 : NetworkManager
   public override void OnStartClient(NetworkClient client)
     {
         base.OnStartClient(client);
-        RegisterClientHandles();
+        //RegisterClientHandles();
     }
 
     public override void OnClientConnect(NetworkConnection conn)
@@ -83,10 +84,15 @@ public class CustomNetworkManager2 : NetworkManager
         clientHudScript.ConnectSuccses();
     }
 
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
+    //public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
+    public override void OnServerAddPlayer(NetworkConnection conn, AddPlayerMessage extraMessage)
+    {
+
         Debug.Log("adding player");
         var player = (GameObject)GameObject.Instantiate(playerPrefab);
-        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+        //NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+        NetworkServer.AddPlayerForConnection(conn, player);
+
     }
 
     //when client recieves password information from the server.
@@ -117,10 +123,10 @@ public class CustomNetworkManager2 : NetworkManager
         NetworkServer.RegisterHandler(MsgType.Highest + 1, OnReceivePassword);
     }
 
-    void RegisterClientHandles()
-    {
-        client.RegisterHandler(MsgType.Highest + 1, OnReceivePassword);
-    }
+    //void RegisterClientHandles()
+    //{
+    //    client.RegisterHandler(MsgType.Highest + 1, OnReceivePassword);
+    //}
 
     void RegisterHostHandles()
     {

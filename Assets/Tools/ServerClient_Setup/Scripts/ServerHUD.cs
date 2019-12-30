@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.Networking;
+using ConnectionConfig = UnityEngine.Networking.ConnectionConfig;
+using Mirror;
 using System;
 using UnityEngine.SceneManagement;
 
@@ -16,17 +17,27 @@ public class ServerHUD : MonoBehaviour {
     private string externalip="?", localIP="?";
     private int maximumConnections;
 
+    TelepathyTransport transport; 
+
     // Use this for initialization
     void Start () {
         if (!manager)
             manager = GetComponent<NetworkManager>();
-        
+
+        transport = manager.GetComponent<TelepathyTransport>();
+
         //Checking if we have saved Server Infomation and filling the text fields.
         if (PlayerPrefs.HasKey("nwPortS"))
         {
-            manager.networkPort = Convert.ToInt32(PlayerPrefs.GetString("nwPortS"));
-            portPlaceholderText.text = manager.networkPort.ToString();
+            //manager.networkPort = Convert.ToInt32(PlayerPrefs.GetString("nwPortS"));
+            //portPlaceholderText.text = manager.networkPort.ToString();
+
+            transport.port = Convert.ToUInt16(PlayerPrefs.GetString("nwPortS"));
+            portPlaceholderText.text = transport.port.ToString();
+
+
         }
+
         if (PlayerPrefs.HasKey("IPAddressS"))
         {
             externalip = PlayerPrefs.GetString("IPAddressS");
@@ -50,12 +61,17 @@ public class ServerHUD : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        noConnection = (manager.client == null || manager.client.connection == null ||
-                     manager.client.connection.connectionId == -1);
+
+        //noConnection = (manager.client == null || manager.client.connection == null ||
+        //             manager.client.connection.connectionId == -1);
+
+        noConnection = (NetworkClient.connection == null || NetworkClient.connection == null ||
+             NetworkClient.connection.connectionId == -1);
 
         //Showing and hiding the appropriate buttons and text depending on if the server is running or not.
-        if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
+        //if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
+        if (!manager.IsClientConnected() && !NetworkServer.active )
+
         {
             if (noConnection)
             {
@@ -85,7 +101,7 @@ public class ServerHUD : MonoBehaviour {
                     maxConn = "8";
                 else maxConn = maxConnText.text;
 
-                serverInfoText.text = "Server Is Running !\n" +"\nIP Address\nExternal : " +externalip+"\nLocal : "+localIP+"\n\nServer Port : " + manager.networkPort+"\nPassword : "+pw+"\nMax Connections : "+ maxConn;
+                serverInfoText.text = "Server Is Running !\n" +"\nIP Address\nExternal : " +externalip+"\nLocal : "+localIP+"\n\nServer Port : " + transport.port +"\nPassword : "+pw+"\nMax Connections : "+ maxConn;
                 setText = false;
             }
         }
@@ -110,19 +126,19 @@ public class ServerHUD : MonoBehaviour {
         {
             if (PlayerPrefs.HasKey("nwPortS"))//did we have a previous one saved.
             {
-                manager.networkPort = Convert.ToInt32(PlayerPrefs.GetString("nwPortS"));
+                transport.port = Convert.ToUInt16(PlayerPrefs.GetString("nwPortS"));
             }
             else//if not, use the default port.
             {
-                manager.networkPort = 7777;
-                portPlaceholderText.text = manager.networkPort.ToString()+"(Default)";
+                transport.port = 7777;
+                portPlaceholderText.text = transport.port.ToString()+"(Default)";
             }
         }
         else
         {
             PlayerPrefs.SetString("nwPortS", portText.text);//save the port we are using.         
-            manager.networkPort = Convert.ToInt32(portText.text);
-            portPlaceholderText.text = manager.networkPort.ToString();
+            transport.port = Convert.ToUInt16(portText.text);
+            portPlaceholderText.text = transport.port.ToString();
         }
 
         PlayerPrefs.SetString("Password", passwordText.text);//save the servers pasword.  
@@ -161,19 +177,19 @@ public class ServerHUD : MonoBehaviour {
         {
           if (PlayerPrefs.HasKey("nwPortS"))//did we have a previous one saved.
           {
-            manager.networkPort = Convert.ToInt32(PlayerPrefs.GetString("nwPortS"));
+            transport.port = Convert.ToUInt16(PlayerPrefs.GetString("nwPortS"));
           }
           else//if not, use the default port.
           {
-            manager.networkPort = 7777;
-            portPlaceholderText.text = manager.networkPort.ToString() + "(Default)";
+            transport.port = 7777;
+            portPlaceholderText.text = transport.port.ToString() + "(Default)";
           }
         }
         else
         {
           PlayerPrefs.SetString("nwPortS", portText.text);//save the port we are using.         
-          manager.networkPort = Convert.ToInt32(portText.text);
-          portPlaceholderText.text = manager.networkPort.ToString();
+          transport.port = Convert.ToUInt16(portText.text);
+          portPlaceholderText.text = transport.port.ToString();
         }
 
         PlayerPrefs.SetString("Password", passwordText.text);//save the servers pasword.  

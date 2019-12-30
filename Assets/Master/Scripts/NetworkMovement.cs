@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
+using Mirror;
 
 public class NetworkMovement : NetworkBehaviour
 {
@@ -121,13 +121,13 @@ public class NetworkMovement : NetworkBehaviour
   #endregion
 
   #region OverNetwork
-  [Command(channel = 1)]
+  [Command]
   protected void CmdSendPosition(Vector3 newPos, Quaternion newRot)
   {
     RpcReceivePosition(newPos, newRot);
   }
 
-  [ClientRpc(channel = 1)]
+  [ClientRpc]
   protected void RpcReceivePosition(Vector3 newPos, Quaternion newRot)
   {
     int frames = (SendRate + 1);

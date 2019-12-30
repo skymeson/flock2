@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.UI;
 
 public class SettingsManager2 :  NetworkBehaviour {

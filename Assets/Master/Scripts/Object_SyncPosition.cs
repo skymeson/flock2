@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
+using Mirror;
 
 public class Object_SyncPosition : NetworkBehaviour
 {
