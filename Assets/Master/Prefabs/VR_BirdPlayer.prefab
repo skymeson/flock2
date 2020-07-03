@@ -1003,7 +1003,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4194104846200290}
-  - component: {fileID: 114363928092921988}
   - component: {fileID: 114107667770427258}
   - component: {fileID: 114637400765348698}
   - component: {fileID: 114197489774795088}
@@ -1030,39 +1029,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114363928092921988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316890123221016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &114107667770427258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1075,6 +1041,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4763b22a33e0648068ddf1c1a998b6ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   inputField: {fileID: 0}
   cubeMat: {fileID: 0}
   vrCameraRig: {fileID: 146900, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
@@ -1106,6 +1074,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4eaf25cbda8d754f8e1a4519e4a868b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   lerpRate: 5
   lerpToCamHeight: 1
   camLerpSpeed: 0.01
@@ -1121,6 +1091,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92118dca8d9344bbba4a63dcbfad578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   trackedObjectNames:
   - Controller (left)
   - Controller (right)
